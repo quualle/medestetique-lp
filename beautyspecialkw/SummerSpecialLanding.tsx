@@ -6,18 +6,7 @@ import Image from 'next/image';
 import { FaPhone, FaCheck, FaStar, FaClock, FaUserMd, FaLeaf, FaShieldAlt, FaGift } from 'react-icons/fa';
 import { FaWhatsapp, FaArrowDown } from 'react-icons/fa6';
 
-// GA4 Event Tracking
-declare global {
-  interface Window {
-    gtag: any;
-  }
-}
-
-const trackEvent = (eventName: string, parameters?: any) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', eventName, parameters);
-  }
-};
+// Event tracking removed - handled by GTM
 
 // Countdown Timer Hook
 const useCountdown = () => {
@@ -122,24 +111,13 @@ const SummerSpecialLanding = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
   useEffect(() => {
-    // Track page view
-    trackEvent('page_view', {
-      page_title: 'Summer Special Landing Page KW',
-      page_location: window.location.href,
-      campaign: 'summer_special'
-    });
+    // Page view tracking handled by GTM
 
     // Handle sticky buttons
     const handleScroll = () => {
       setIsSticky(window.scrollY > 400);
       
-      // Track 50% scroll
-      if (window.scrollY > document.documentElement.scrollHeight * 0.5) {
-        trackEvent('scroll_50_percent', {
-          event_category: 'engagement',
-          event_label: 'summer_special_scroll_50'
-        });
-      }
+      // Scroll tracking handled by GTM
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -147,44 +125,17 @@ const SummerSpecialLanding = () => {
   }, []);
 
   const handleCallClick = () => {
-    trackEvent('call_click', {
-      event_category: 'engagement',
-      event_label: 'summer_special_call',
-      event_value: 179
-    });
-    
-    // Google Ads Conversion
-    trackEvent('conversion', {
-      'send_to': 'AW-17275818810/CALL_CONVERSION',
-      'value': 179.0,
-      'currency': 'EUR'
-    });
-    
+    // Tracking handled by GTM
     window.location.href = `tel:${phoneNumber}`;
   };
 
   const handleWhatsappClick = () => {
-    trackEvent('wa_click', {
-      event_category: 'engagement',
-      event_label: 'summer_special_whatsapp'
-    });
+    // Tracking handled by GTM
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
   };
 
   const handleBookingClick = () => {
-    trackEvent('booking_click', {
-      event_category: 'conversion',
-      event_label: 'summer_special_booking',
-      event_value: 179
-    });
-    
-    // Google Ads Conversion
-    trackEvent('conversion', {
-      'send_to': 'AW-17275818810/BOOKING_CONVERSION',
-      'value': 179.0,
-      'currency': 'EUR'
-    });
-    
+    // Tracking handled by GTM
     window.open('https://www.planity.com/de-DE/glam-glow-beauty-15711-konigs-wusterhausen#service-name-10-0', '_blank', 'noopener,nofollow');
   };
 
