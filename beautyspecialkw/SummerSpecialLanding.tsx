@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { FaPhone, FaCheck, FaStar, FaClock, FaUserMd, FaLeaf, FaShieldAlt, FaGift } from 'react-icons/fa';
 import { FaWhatsapp, FaArrowDown } from 'react-icons/fa6';
+import Script from 'next/script';
 
 // Event tracking removed - handled by GTM
 
@@ -136,6 +137,7 @@ const SummerSpecialLanding = () => {
 
   const handleBookingClick = () => {
     // Tracking handled by GTM
+    window.gtag_report_conversion('https://www.planity.com/de-DE/glam-glow-beauty-15711-konigs-wusterhausen#service-name-10-0');
     window.open('https://www.planity.com/de-DE/glam-glow-beauty-15711-konigs-wusterhausen#service-name-10-0', '_blank', 'noopener,nofollow');
   };
 
@@ -160,6 +162,39 @@ const SummerSpecialLanding = () => {
 
   return (
     <>
+      {/* Google Ads Conversion Tracking */}
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17275818810');
+            
+            // Conversion tracking function
+            window.gtag_report_conversion = function(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                'send_to': 'AW-17275818810/ERhwCKfhpugaELqm4K1A',
+                'value': 1.0,
+                'currency': 'EUR',
+                'event_callback': callback
+              });
+              return false;
+            }
+          `,
+        }}
+      />
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-17275818810"
+        strategy="afterInteractive"
+      />
       {/* Hero Section with Parallax */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
         {/* Animated Background */}

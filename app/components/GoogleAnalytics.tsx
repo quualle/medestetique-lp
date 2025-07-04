@@ -1,46 +1,21 @@
 import Script from 'next/script';
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
-const GOOGLE_ADS_ID = 'AW-17275818810';
+const GTM_ID = 'GTM-PG8FP2X6';
 
 const GoogleAnalytics = () => {
   return (
     <>
-      {/* Google Analytics */}
+      {/* Google Tag Manager */}
       <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-      />
-      
-      {/* Google Ads Conversion Tracking */}
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
-      />
-      
-      <Script
-        id="google-analytics"
+        id="gtm-script"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            
-            // Google Analytics
-            gtag('config', '${GA_MEASUREMENT_ID}', {
-              page_path: window.location.pathname,
-            });
-            
-            // Google Ads Conversion Tracking
-            gtag('config', '${GOOGLE_ADS_ID}');
-            
-            // Track Web Vitals
-            gtag('event', 'web_vitals', {
-              event_category: 'Web Vitals',
-              event_label: 'LCP',
-              value: Math.round(performance.now())
-            });
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
           `,
         }}
       />
