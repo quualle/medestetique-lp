@@ -8,6 +8,11 @@ import { FaWhatsapp, FaArrowDown } from 'react-icons/fa6';
 import Script from 'next/script';
 
 // GA4 Event Tracking
+declare global {
+  interface Window {
+    gtag: any;
+  }
+}
 
 const trackEvent = (eventName: string, parameters?: any) => {
   if (typeof window !== 'undefined' && window.gtag) {
