@@ -11,6 +11,7 @@ import Script from 'next/script';
 declare global {
   interface Window {
     gtag: any;
+    gtag_report_conversion: any;
   }
 }
 
